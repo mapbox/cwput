@@ -7,8 +7,8 @@ Very simple script to send custom metrics to AWS CloudWatch
 - aws-cli
 - upstart
 - AWS API permissions
-  - x
-  - y
+  - cloudwatch:PutMetricData
+  - autoscaling:DescribeAutoScalingInstances
 
 ## Install
 
