@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+region=$1
+namespace="System/Linux"
+metric_name=
+dimensions="InstanceId=$2"
+asdimensions="AutoScalingGroupName=$3"
+unit="Percent"
+value=
+
+info=$(df -x tmpfs -x devtmpfs | tail -n+2)
+
+while read line; do
+    metric_name=
+    value=
+    # Get location of device mount
+    mount=${line##* }
+    mount=${mount:1}
+    # Get device percent used
+    value=${line%%\%*}
+    value=${value##* }
+    if [ "$mount" = "" ]; then
+        metric_name="root"
+    else
+        metric_name="$mount"
+    fi
+    metric_name="${metric_name}DiskPercentUsed"
+    aws cloudwatch put-metric-data \
+        --region $region \
+        --namespace $namespace \
+        --metric-name $metric_name \
+        --dimensions $dimensions \
+        --value $value \
+        --unit $unit
+    aws cloudwatch put-metric-data \
+        --region $region \
+        --namespace $namespace \
+        --metric-name $metric_name \
+        --dimensions $asdimensions \
+        --value $value \
+        --unit $unit
+done <<< "$info"

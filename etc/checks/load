@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+namespace="System/Linux"
+metric_name="LoadAverageMinute"
+dimensions="InstanceId=$1"
+asdimensions="AutoScalingGroupName=$2"
+unit="Count"
+value=$(cat /proc/loadavg |cut -d " " -f 1)
+
+aws cloudwatch put-metric-data \
+    --region $region \
+    --namespace $namespace \
+    --metric-name $metric_name \
+    --dimensions $dimensions \
+    --value $value \
+    --unit $unit
+
+aws cloudwatch put-metric-data \
+    --region $region \
+    --namespace $namespace \
+    --metric-name $metric_name \
+    --dimensions $asdimensions \
+    --value $value \
+    --unit $unit
+

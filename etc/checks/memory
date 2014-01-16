@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+namespace="System/Linux"
+metric_name="MemoryPercentUsed"
+dimensions="InstanceId=$1"
+asdimensions="AutoScalingGroupName=$2"
+unit="Percent"
+value=
+
+total=$(free -m | grep "Mem" | tr -s " " | cut -d " " -f 2)
+free=$(free -m | grep "buffers/cache" | tr -s " " | cut -d " " -f 4)
+value=$((100 - (( (($free * 100)) / $total)) ))
+
+aws cloudwatch put-metric-data \
+    --region $region \
+    --namespace $namespace \
+    --metric-name $metric_name \
+    --dimensions $dimensions \
+    --value $value \
+    --unit $unit
+aws cloudwatch put-metric-data \
+    --region $region \
+    --namespace $namespace \
+    --metric-name $metric_name \
+    --dimensions $asdimensions \
+    --value $value \
+    --unit $unit
