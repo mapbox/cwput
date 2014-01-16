@@ -24,7 +24,7 @@ Put bash scripts in /etc/cwput/checks and cwput will execute them. For example:
 REGION=$1
 NAMESPACE="System/Linux"
 METRIC_NAME="MemoryPercentUsed"
-DIMENSIONS="InstanceId:$2"
+DIMENSIONS="InstanceId=$2"
 ASDIMENSIONS="AutoScalingGroupName=$3"
 UNIT="Percent"
 
