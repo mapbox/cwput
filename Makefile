@@ -8,4 +8,10 @@ install:
 	cp -r ./etc/checks /etc/cwput
 	start cwput
 
-.PHONY: install
+uninstall:
+
+	stop cwput
+	rm -r /etc/cwput
+	rm /etc/init/cwput.conf
+
+.PHONY: install uninstall
