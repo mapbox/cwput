@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+region=$1
 namespace="System/Linux"
 metric_name="MemoryPercentUsed"
-dimensions="InstanceId=$1"
-asdimensions="AutoScalingGroupName=$2"
+dimensions="InstanceId=$2"
+asdimensions="AutoScalingGroupName=$3"
 unit="Percent"
 value=
 
