@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+region=$1
+namespace="System/Linux"
+metric_name="ConnectionsTotal"
+dimensions="InstanceId=$2"
+asdimensions="AutoScalingGroupName=$3"
+unit="Count"
+value=$(ss -a -t | wc -l)
+
+aws cloudwatch put-metric-data \
+    --region $region \
+    --namespace $namespace \
+    --metric-name $metric_name \
+    --dimensions $dimensions \
+    --value $value \
+    --unit $unit
+aws cloudwatch put-metric-data \
+    --region $region \
+    --namespace $namespace \
+    --metric-name $metric_name \
+    --dimensions $asdimensions \
+    --value $value \
+    --unit $unit
