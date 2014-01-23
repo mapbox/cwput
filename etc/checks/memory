@@ -2,7 +2,7 @@
 
 region=$1
 namespace="System/Linux"
-metric_name="MemoryPercentUsed"
+metric_name="MemoryUtilization"
 dimensions="InstanceId=$2"
 asdimensions="AutoScalingGroupName=$3"
 unit="Percent"

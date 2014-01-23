@@ -20,9 +20,9 @@ while read line; do
     value=${line%%\%*}
     value=${value##* }
     if [ "$mount" = "" ]; then
-        metric_name="root"
+        metric_name="rootDiskUtilization"
     else
-        metric_name="$mount"
+        metric_name="${mount}DiskUtilization"
     fi
     metric_name="${metric_name}DiskPercentUsed"
     aws cloudwatch put-metric-data \
