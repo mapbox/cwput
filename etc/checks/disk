@@ -24,7 +24,6 @@ while read line; do
     else
         metric_name="${mount}DiskUtilization"
     fi
-    metric_name="${metric_name}DiskPercentUsed"
     aws cloudwatch put-metric-data \
         --region $region \
         --namespace $namespace \
