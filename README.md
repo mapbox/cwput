@@ -12,7 +12,7 @@ Very simple script to send custom metrics to AWS CloudWatch
 
 ## Install
 
-`sudo make`
+`./install.bash`
 
 ## Configure
 
