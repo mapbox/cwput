@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
-region=$1
 namespace="System/Linux"
 metric_name="LoadAverage"
-dimensions="InstanceId=$2,AutoScalingGroupName=$3"
 unit="Count"
+region=$1
+dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
+dimAs="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=$(cat /proc/loadavg |cut -d " " -f 1)
 
 aws cloudwatch put-metric-data \
-    --region $region \
-    --namespace $namespace \
-    --metric-name $metric_name \
-    --dimensions $dimensions \
-    --value $value \
-    --unit $unit
+--region $region \
+--namespace "$namespace" \
+--metric-data "\
+[\
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}, \
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimAs, \"Value\": \"$value\", \"Unit\": \"$unit\"}\
+]"

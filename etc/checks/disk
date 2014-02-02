@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-region=$1
 namespace="System/Linux"
-metric_name=
-dimensions="InstanceId=$2,AutoScalingGroupName=$3"
 unit="Percent"
+metric_name=
+region=$1
+dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
+dimAs="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=
 
 info=$(df -x tmpfs -x devtmpfs | tail -n+2)
+metrics=""
 
 while read line; do
     metric_name=
@@ -23,11 +25,14 @@ while read line; do
     else
         metric_name="${mount}DiskUtilization"
     fi
-    aws cloudwatch put-metric-data \
-        --region $region \
-        --namespace $namespace \
-        --metric-name $metric_name \
-        --dimensions $dimensions \
-        --value $value \
-        --unit $unit
+
+    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
+    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimAs, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
 done <<< "$info"
+
+data=$(sed  's/^,//' <<< $data); # Strip leading comma
+
+aws cloudwatch put-metric-data \
+--region $region \
+--namespace "$namespace" \
+--metric-data "[ $metrics ]"
