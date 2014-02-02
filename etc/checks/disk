@@ -30,7 +30,7 @@ while read line; do
     metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimAs, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
 done <<< "$info"
 
-data=$(sed  's/^,//' <<< $data); # Strip leading comma
+metrics=$(sed  's/^,//' <<< $metrics); # Strip leading comma
 
 aws cloudwatch put-metric-data \
 --region $region \
