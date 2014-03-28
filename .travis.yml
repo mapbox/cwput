@@ -1,8 +1,0 @@
-language: python
-env:
-  global:
-  - AWS_ACCESS_KEY_ID: AKIAJMYD2D24SY3LBO2A
-  - secure: ZGFsbrI+T2J29fMvlHJKREE9Cb8m+W81MUxmPluZnZb3L0qr8IBCDyhR5J7MV1urshI+I9XWeUJlxvLYnQY8pGSO98qFc91pBNu7pNncLE4JjXpXxPSenGmsT6+0uPIhBQiWbcwTPcWKnxxjEt0FKah4VO/ueycYHh0bVrb2L5Q=
-script:
-- curl -sSf https://raw.githubusercontent.com/mapbox/build2s3/v0.0.1/bin/build2s3.bash
-  | bash -s "mapbox-npm/package"
