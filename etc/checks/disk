@@ -5,7 +5,7 @@ unit="Percent"
 metric_name=
 region=$1
 dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimAs="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
+dimGr="[ {\"Name\": \"Group\", \"Value\": \"$3\"} ]"
 value=
 
 info=$(df -x tmpfs -x devtmpfs | tail -n+2)
@@ -27,7 +27,7 @@ while read line; do
     fi
 
     metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
-    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimAs, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
+    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
 done <<< "$info"
 
 metrics=$(sed  's/^,//' <<< $metrics); # Strip leading comma
