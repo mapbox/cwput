@@ -5,7 +5,7 @@ metric_name="MemoryUtilization"
 unit="Percent"
 region=$1
 dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimAs="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
+dimGr="[ {\"Name\": \"Group\", \"Value\": \"$3\"} ]"
 value=
 
 total=$(free -m | grep "Mem" | tr -s " " | cut -d " " -f 2)
@@ -18,5 +18,5 @@ aws cloudwatch put-metric-data \
 --metric-data "\
 [\
 {\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}, \
-{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimAs, \"Value\": \"$value\", \"Unit\": \"$unit\"}\
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": \"$value\", \"Unit\": \"$unit\"}\
 ]"
