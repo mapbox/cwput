@@ -5,7 +5,7 @@ metric_name="ConnectionsTotal"
 unit="Count"
 region=$1
 dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimGr="[ {\"Name\": \"Group\", \"Value\": \"$3\"} ]"
+dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=$(ss -a -t | wc -l)
 
 aws cloudwatch put-metric-data \

@@ -5,7 +5,7 @@ metric_name="LoadAverage"
 unit="Count"
 region=$1
 dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimGr="[ {\"Name\": \"Group\", \"Value\": \"$3\"} ]"
+dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=$(cat /proc/loadavg |cut -d " " -f 1)
 
 aws cloudwatch put-metric-data \
