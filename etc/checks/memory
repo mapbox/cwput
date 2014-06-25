@@ -5,7 +5,7 @@ metric_name="MemoryUtilization"
 unit="Percent"
 region=$1
 dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimGr="[ {\"Name\": \"Group\", \"Value\": \"$3\"} ]"
+dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=
 
 total=$(free -m | grep "Mem" | tr -s " " | cut -d " " -f 2)

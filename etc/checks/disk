@@ -5,7 +5,7 @@ unit="Percent"
 metric_name=
 region=$1
 dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimGr="[ {\"Name\": \"Group\", \"Value\": \"$3\"} ]"
+dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=
 
 info=$(df -x tmpfs -x devtmpfs | tail -n+2)
