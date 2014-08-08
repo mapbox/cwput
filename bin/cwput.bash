@@ -18,7 +18,7 @@ fi
 for file in $( ls $CONFIG_DIR );
 do
     # timeout to avoid overlapping jobs in case of slow command
-    timeout 30 $CONFIG_DIR/$file $REGION $STACK_NAME-$EC2_REGION-$INSTANCEID $CWPUT_GROUP &
+    timeout 30 $CONFIG_DIR/$file $REGION $INSTANCEID-$STACK_NAME-$EC2_REGION $CWPUT_GROUP &
     # Reduce load on instance and CloudWatch API request rate
     sleep $[ ( $RANDOM % 6 )  + 1 ]
 done
