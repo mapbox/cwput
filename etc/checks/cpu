@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+namespace="System/Linux"
+metric_name="CPUUtilization"
+unit="Percent"
+region=$1
+dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
+dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
+value=
+
+value=$(echo $[100-$(vmstat|tail -1|awk '{print $15}')])
+
+aws cloudwatch put-metric-data \
+--region $region \
+--namespace "$namespace" \
+--metric-data "\
+[\
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}, \
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": \"$value\", \"Unit\": \"$unit\"}\
+]"
