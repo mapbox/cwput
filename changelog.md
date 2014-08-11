@@ -1,3 +1,9 @@
+### 0.4.0
+
+- InstanceId value submitted to CloudWatch is now like
+  $INSTANCEID-$STACK_NAME-$EC2_REGION which makes it easier to deal with
+  aggregate and non-aggregate metrics within Librato.
+
 ### 0.3.0
 
 - Use `AutoScalingGroupName` as the dimension when submitting metrics for an
