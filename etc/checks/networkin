@@ -10,7 +10,11 @@ dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
 dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=
 
-prev=$(cat /tmp/cwput_rx_bytes)
+if [ -f /tmp/cwput_rx_bytes ]; then
+    prev=$(cat /tmp/cwput_rx_bytes)
+else
+    prev=""
+fi
 rx=$(cat /sys/class/net/eth0/statistics/rx_bytes)
 
 if [ -z "$prev" ]; then
