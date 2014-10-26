@@ -14,6 +14,7 @@ install:
 - sudo apt-get install -qqy python-pip
 
 script:
+- ifconfig | grep -oE '^eth[0-9]+' | head -n1
 - sudo pip install -q awscli==1.3.18
 - ./test/test.sh
 - sudo pip install -q awscli==1.5.3

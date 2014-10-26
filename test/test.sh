@@ -10,10 +10,11 @@ CWPUT_GROUP="testgroup-$TESTID"
 START_TIME="$(date -d '1 minute ago' -u --iso-8601=seconds)"
 
 function assertExit0() {
-    if $1 &> /dev/null; then
+    if $1 &> /tmp/test-output.log; then
         echo "ok - exit 0 $1";
     else
         echo "not ok - exit != 0 $1";
+        cat /tmp/test-output.log
         failed="1"
     fi
 }
