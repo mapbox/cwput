@@ -14,7 +14,7 @@ function assertExit0() {
     if $1 &> /dev/null; then
         echo "ok - exit 0 $1";
     else
-        echo "not ok - exit 0 $1";
+        echo "not ok - exit != 0 $1";
         failed="1"
     fi
 }
