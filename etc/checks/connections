@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 namespace="System/Linux"
 metric_name="ConnectionsTotal"
 unit="Count"

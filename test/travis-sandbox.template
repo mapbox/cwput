@@ -1,0 +1,52 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "cwput sandbox user",
+  "Resources": {
+    "TestUser": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Policies": [
+          {
+            "PolicyName": "cloudwatch",
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Resource": [
+                    "*"
+                  ],
+                  "Action": [
+                    "cloudwatch:*"
+                  ],
+                  "Effect": "Allow"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "TestUserKey": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": {
+        "UserName": {
+          "Ref": "TestUser"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "SandboxAccessKeyId": {
+      "Value": {
+        "Ref": "TestUserKey"
+      }
+    },
+    "SandboxSecretAccessKey": {
+      "Value": {
+        "Fn::GetAtt": [
+          "TestUserKey",
+          "SecretAccessKey"
+        ]
+      }
+    }
+  }
+}
