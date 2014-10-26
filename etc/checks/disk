@@ -28,8 +28,8 @@ while read line; do
         metric_name="${mount}DiskUtilization"
     fi
 
-    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
-    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": \"$value\", \"Unit\": \"$unit\"}"
+    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": $value, \"Unit\": \"$unit\"}"
+    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": $value, \"Unit\": \"$unit\"}"
 done <<< "$info"
 
 metrics=$(sed  's/^,//' <<< $metrics); # Strip leading comma
