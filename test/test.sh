@@ -2,7 +2,6 @@
 
 failed="0"
 
-AWS_DEFAULT_REGION="us-east-1"
 TESTID="$(date '+%s')"
 CHECKS="$(dirname $0)/../etc/checks"
 REGION="us-east-1"
