@@ -1,3 +1,7 @@
+### 0.5.0
+
+- Adds support for awscli 1.5.x.
+
 ### 0.4.0
 
 - InstanceId value submitted to CloudWatch is now like
