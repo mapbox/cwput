@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 namespace="System/Linux"
 metric_name="LoadAverage"
 unit="Count"
@@ -13,6 +15,6 @@ aws cloudwatch put-metric-data \
 --namespace "$namespace" \
 --metric-data "\
 [\
-{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}, \
-{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": \"$value\", \"Unit\": \"$unit\"}\
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": $value, \"Unit\": \"$unit\"}, \
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": $value, \"Unit\": \"$unit\"}\
 ]"

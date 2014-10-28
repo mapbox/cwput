@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -e
+
+CWPUT_NET=${CWPUT_NET:-"eth0"}
+
 namespace="System/Linux"
 metric_name="NetworkOut"
 unit="Bytes"
@@ -8,20 +12,22 @@ dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
 dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
 value=
 
-prev=$(cat /tmp/cwput_tx_bytes)
-tx=$(cat /sys/class/net/eth0/statistics/tx_bytes)
+tx=$(cat /sys/class/net/$CWPUT_NET/statistics/tx_bytes)
 
-if [ -z "$prev" ]; then
+if [ ! -f /tmp/cwput_tx_bytes ]; then
     echo "$tx" > /tmp/cwput_tx_bytes
-else
-    value=$(($tx - $prev))
-    echo "$tx" > /tmp/cwput_tx_bytes
-    aws cloudwatch put-metric-data \
-    --region $region \
-    --namespace "$namespace" \
-    --metric-data "\
-    [\
-    {\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": \"$value\", \"Unit\": \"$unit\"}, \
-    {\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": \"$value\", \"Unit\": \"$unit\"}\
-    ]"
 fi
+
+prev=$(cat /tmp/cwput_tx_bytes)
+
+value=$(($tx - $prev))
+echo "$tx" > /tmp/cwput_tx_bytes
+aws cloudwatch put-metric-data \
+--region $region \
+--namespace "$namespace" \
+--metric-data "\
+[\
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": $value, \"Unit\": \"$unit\"}, \
+{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": $value, \"Unit\": \"$unit\"}\
+]"
+

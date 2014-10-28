@@ -1,0 +1,22 @@
+language: cpp
+
+compiler:
+- gcc
+
+env:
+  global:
+  - CWPUT_NET: venet0
+  - AWS_DEFAULT_REGION: us-east-1
+  - secure: "Xi3Z5U4CansUeWqpwfDVr3w+EehbCIjegepqfYoeKPC+FIkTNNJrQBsBwpQ/5AZ60gfJmpeJ9LgOx2hsyjjH3CihUJRqOG9+c6KkIkJrVCOOd6zPmIGypschgkovjjG6/HXZBV3qx+UT/Zq8seGuvrERMFlid+pEnyRxLOWWga0="
+  - secure: "UNaDu5O29Ot6TM5SVC8qkUOGwvK9MiBPe9sD1qh5OXz5teBTsplXokUKFf7S737Q1sZKFC02YqCv7Gz0PhvpFm0H77ZKIDHVAogS/gHJtxaiFyXKck0iphUzdaQGXZEWFNj1CP++jIByxf3D5g66ltu+bkiJfNykMoj2geEunwE="
+
+install:
+- sudo apt-get update -qqy
+- sudo apt-get install -qqy python-pip
+
+script:
+- ifconfig
+- sudo pip install -q awscli==1.3.18
+- ./test/test.sh
+- sudo pip install -q awscli==1.5.3
+- ./test/test.sh
