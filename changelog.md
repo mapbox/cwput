@@ -1,3 +1,8 @@
+### 0.6.0
+
+- Submits metrics to CloudWatch in batch
+- Checks can no longer set their own namespace
+
 ### 0.5.0
 
 - Adds support for awscli 1.5.x.
