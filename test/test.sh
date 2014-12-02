@@ -19,20 +19,14 @@ function assertExit0() {
     fi
 }
 
-assertExit0 "$CHECKS/connections $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/cpu $REGION $INSTANCE $CWPUT_GROUP"
 assertExit0 "$CHECKS/disk $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/load $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/memory $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/networkin $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/networkout $REGION $INSTANCE $CWPUT_GROUP"
 
 echo "# waiting 60s for cloudwatch..."
 sleep 60
 
 END_TIME="$(date -d 'now' -u --iso-8601=seconds)"
 
-for METRIC in ConnectionsTotal CPUUtilization rootDiskUtilization LoadAverage MemoryUtilization NetworkIn NetworkOut; do
+for METRIC in rootDiskUtilizationt; do
     for DIM in "Name=InstanceId,Value=$INSTANCE" "Name=AutoScalingGroupName,Value=$CWPUT_GROUP"; do
         if aws cloudwatch get-metric-statistics \
         --namespace="System/Linux" \
