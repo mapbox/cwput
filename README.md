@@ -25,3 +25,6 @@ autoscaling group ID of instances metrics can be tracked both by individual
 instance IDs and by the AS group as a whole.
 
 If unset the second dimension will fallback to the instance ID.
+
+Set the `CWPUT_NAMESPACE` environment variable to submit metrics to CloudWatch
+using a namespace different from the cwput default of `System/Linux`

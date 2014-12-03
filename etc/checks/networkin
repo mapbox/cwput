@@ -4,13 +4,8 @@ set -e
 
 CWPUT_NET=${CWPUT_NET:-"eth0"}
 
-namespace="System/Linux"
 metric_name="NetworkIn"
 unit="Bytes"
-region=$1
-dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
-value=
 
 rx=$(cat /sys/class/net/$CWPUT_NET/statistics/rx_bytes)
 
@@ -22,12 +17,5 @@ prev=$(cat /tmp/cwput_rx_bytes)
 
 value=$(($rx - $prev))
 echo "$rx" > /tmp/cwput_rx_bytes
-aws cloudwatch put-metric-data \
---region $region \
---namespace "$namespace" \
---metric-data "\
-[\
-{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": $value, \"Unit\": \"$unit\"}, \
-{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": $value, \"Unit\": \"$unit\"}\
-]"
 
+echo "$metric_name;$unit;$value"

@@ -3,10 +3,13 @@
 failed="0"
 
 TESTID="$(date '+%s')"
-CHECKS="$(dirname $0)/../etc/checks"
-REGION="us-east-1"
-INSTANCE="test-$TESTID"
-CWPUT_GROUP="testgroup-$TESTID"
+CMD="$(dirname $0)/../bin/cwput.bash"
+export CWPUT_CONFIG_DIR="$(dirname $0)/../etc/checks"
+export EC2_REGION="us-east-1"
+export INSTANCE_ID="test-$TESTID"
+export CWPUT_GROUP="testgroup-$TESTID"
+export CWPUT_DIM_ID=${DIM_ID:-"[ {\"Name\": \"InstanceId\", \"Value\": \"$INSTANCE_ID\"} ]"}
+export CWPUT_DIM_GROUP="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$CWPUT_GROUP\"} ]"
 START_TIME="$(date -d '1 minute ago' -u --iso-8601=seconds)"
 
 function assertExit0() {
@@ -19,13 +22,7 @@ function assertExit0() {
     fi
 }
 
-assertExit0 "$CHECKS/connections $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/cpu $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/disk $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/load $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/memory $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/networkin $REGION $INSTANCE $CWPUT_GROUP"
-assertExit0 "$CHECKS/networkout $REGION $INSTANCE $CWPUT_GROUP"
+assertExit0 $CMD
 
 echo "# waiting 60s for cloudwatch..."
 sleep 60
@@ -33,7 +30,7 @@ sleep 60
 END_TIME="$(date -d 'now' -u --iso-8601=seconds)"
 
 for METRIC in ConnectionsTotal CPUUtilization rootDiskUtilization LoadAverage MemoryUtilization NetworkIn NetworkOut; do
-    for DIM in "Name=InstanceId,Value=$INSTANCE" "Name=AutoScalingGroupName,Value=$CWPUT_GROUP"; do
+    for DIM in "Name=InstanceId,Value=$INSTANCE_ID" "Name=AutoScalingGroupName,Value=$CWPUT_GROUP"; do
         if aws cloudwatch get-metric-statistics \
         --namespace="System/Linux" \
         --metric-name="$METRIC" \
@@ -56,4 +53,3 @@ if [ "$failed" == "1" ]; then
 else
     exit 0
 fi
-

@@ -2,16 +2,8 @@
 
 set -e
 
-namespace="System/Linux"
 unit="Percent"
-metric_name=
-region=$1
-dimId="[ {\"Name\": \"InstanceId\", \"Value\": \"$2\"} ]"
-dimGr="[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$3\"} ]"
-value=
-
 info=$(df -x tmpfs -x devtmpfs | tail -n+2)
-metrics=""
 
 while read line; do
     metric_name=
@@ -28,13 +20,6 @@ while read line; do
         metric_name="${mount}DiskUtilization"
     fi
 
-    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimId, \"Value\": $value, \"Unit\": \"$unit\"}"
-    metrics="$metrics,{\"MetricName\": \"$metric_name\", \"Dimensions\": $dimGr, \"Value\": $value, \"Unit\": \"$unit\"}"
+    echo "$metric_name;$unit;$value"
+
 done <<< "$info"
-
-metrics=$(sed  's/^,//' <<< $metrics); # Strip leading comma
-
-aws cloudwatch put-metric-data \
---region $region \
---namespace "$namespace" \
---metric-data "[ $metrics ]"
