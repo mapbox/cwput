@@ -1,3 +1,8 @@
+### 0.7.0
+
+- Adds few seconds jitter around CloudWatch API call
+- Set CWPUT_DISABLE_DETAILED to disable detailed monitoring
+
 ### 0.6.0
 
 - Submits metrics to CloudWatch in batch
