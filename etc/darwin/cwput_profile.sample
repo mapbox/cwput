@@ -1,0 +1,5 @@
+export CWPUT_NAMESPACE=
+export AWS_SECRET_ACCESS_KEY=
+export EC2_REGION=
+export AWS_ACCESS_KEY_ID=
+export INSTANCE_ID=

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+metric_name="Heartbeat"
+unit="Count"
+value="1"
+
+echo "$metric_name;$unit;$value"
