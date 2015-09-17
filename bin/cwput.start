@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+source /etc/profile
+while [ 1 ]
+do
+  (HOME=/root timeout 120 /usr/bin/cwput.bash) &
+  if [ -n "$CWPUT_DISABLE_DETAILED" ]; then
+    sleep 300
+  else
+    sleep 60
+  fi
+done

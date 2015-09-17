@@ -7,12 +7,12 @@ CWPUT_DIM_ID=${CWPUT_DIM_ID:-"[ {\"Name\": \"InstanceId\", \"Value\": \"$INSTANC
 CWPUT_DIM_GROUP=${CWPUT_DIM_GROUP:-"[ {\"Name\": \"AutoScalingGroupName\", \"Value\": \"$CWPUT_GROUP\"} ]"}
 
 if [ -z $INSTANCE_ID ]; then
-    echo "InstanceID could not be determined"
+    echo "INSTANCE_ID not found"
     exit 1
 fi
 
 if [ -z $EC2_REGION ]; then
-    echo "Region could not be determined"
+    echo "EC2_REGION not found"
     exit 1
 fi
 
