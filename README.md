@@ -5,9 +5,10 @@ Very simple script to send custom metrics to AWS CloudWatch
 ## Requirements
 
 - aws-cli
-- upstart
+- upstart, systemd or launchd
 - AWS API permissions
   - cloudwatch:PutMetricData
+- For OSX installs, coreutils must be installed from brew
 
 ## Install
 
