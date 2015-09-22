@@ -4,7 +4,5 @@ Wants=runlevel2.target
 Conflicts=runlevel0.target runlevel1.target runlevel6.target
 
 [Service]
-#Type=forking
 ExecStart="/usr/bin/cwput.start"
 KillMode=process
-#KillSignal=-1
