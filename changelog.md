@@ -1,3 +1,8 @@
+### 0.8.0
+
+- CWPUT_PERIOD replaces CWPUT_DISABLE_DETAILED. To preserve the behavior of
+  CWPUT_DISABLE_DETAILED set CWPUT_PERIOD to `5`.
+
 ### 0.7.0
 
 - Adds few seconds jitter around CloudWatch API call

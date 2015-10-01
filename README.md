@@ -37,10 +37,8 @@ If unset the second dimension will fallback to the instance ID.
 Set the `CWPUT_NAMESPACE` environment variable to submit metrics to CloudWatch
 using a namespace different from the cwput default of `System/Linux`
 
-#### CWPUT_DISABLE_DETAILED
+#### CWPUT_PERIOD
 
-Set `CWPUT_DISABLE_DETAILED` to `true` if you want to send metrics to the
-CloudWatch API every 5 minutes instead of every 1 minute.  For example, if your
-EC2 is not using CloudWatch detailed monitoring, you could instead send
-CloudWatch metrics every 5 minutes by setting this variable, which will reduce
-the number of API calls made to CloudWatch.
+The number of minutes between metric reporting. Expected values are `0`, `1` &
+`5`.  Setting `CWPUT_PERIOD` to other values will result in undefined behavior.
+Setting a value of `0` will disable reporting. Default is `1`.
