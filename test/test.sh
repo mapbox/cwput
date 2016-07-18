@@ -17,9 +17,9 @@ function assertExit0() {
         echo "ok - exit 0 $1";
     else
         echo "not ok - exit != 0 $1";
-        cat /tmp/test-output.log
         failed="1"
     fi
+    cat /tmp/test-output.log
 }
 
 assertExit0 $CMD
