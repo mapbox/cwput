@@ -41,6 +41,8 @@ done
 # Jitter around API call to avoid rate limiting when running lots of EC2s
 sleep $[ ( $RANDOM % 8 )  + 1 ]
 
+echo "${metrics}"
+
 aws cloudwatch put-metric-data \
 --region $EC2_REGION \
 --namespace $CWPUT_NAMESPACE \

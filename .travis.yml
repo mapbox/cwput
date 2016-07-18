@@ -13,8 +13,6 @@ env:
 install:
 - sudo apt-get update -qqy
 - sudo apt-get install -qqy python-pip
-- ls -l /sys/class/net/
-- cat /sys/class/net/eth0/statistics/rx_bytes
 
 script:
 - ifconfig
