@@ -20,3 +20,5 @@ script:
 - ./test/test.sh
 - sudo pip install -q awscli==1.5.3
 - ./test/test.sh
+
+sudo: required
