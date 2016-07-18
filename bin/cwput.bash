@@ -21,6 +21,7 @@ metrics=
 for file in $( ls $CWPUT_CONFIG_DIR );
 do
     data=$($CWPUT_CONFIG_DIR/$file)
+    echo "${file}: ${data}"
     # A check may echo multiple lines, one per metric
     for line in $data; do
         if [ -n "$metrics" ]; then
