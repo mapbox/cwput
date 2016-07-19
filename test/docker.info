@@ -1,0 +1,41 @@
+Containers: 1
+ Running: 1
+ Paused: 0
+ Stopped: 0
+Images: 1
+Server Version: 1.11.2
+Storage Driver: devicemapper
+ Pool Name: docker-docker--pool
+ Pool Blocksize: 524.3 kB
+ Base Device Size: 10.74 GB
+ Backing Filesystem: ext4
+ Data file:
+ Metadata file:
+ Data Space Used: 338.2 MB
+ Data Space Total: 23.35 GB
+ Data Space Available: 23.02 GB
+ Metadata Space Used: 172 kB
+ Metadata Space Total: 25.17 MB
+ Metadata Space Available: 24.99 MB
+ Udev Sync Supported: true
+ Deferred Removal Enabled: true
+ Deferred Deletion Enabled: true
+ Deferred Deleted Device Count: 0
+ Library Version: 1.02.93-RHEL7 (2015-01-28)
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge null host
+Kernel Version: 4.4.10-22.54.amzn1.x86_64
+Operating System: Amazon Linux AMI 2016.03
+OSType: linux
+Architecture: x86_64
+CPUs: 2
+Total Memory: 3.679 GiB
+Name: ip-10-0-33-117
+ID: OH2A:LN2M:ZNFH:42C3:KJUU:QHAB:MX4M:HFGV:OEB2:WVUH:7NLX:U5ZQ
+Docker Root Dir: /var/lib/docker
+Debug mode (client): false
+Debug mode (server): false
+Registry: https://index.docker.io/v1/

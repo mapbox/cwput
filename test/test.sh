@@ -22,6 +22,9 @@ function assertExit0() {
     fi
 }
 
+# mocks docker client
+export PATH=$(dirname $0):${PATH}
+
 assertExit0 $CMD
 
 echo "# waiting 60s for cloudwatch..."
@@ -29,7 +32,7 @@ sleep 60
 
 END_TIME="$(date -d 'now' -u --iso-8601=seconds)"
 
-for METRIC in ConnectionsTotal CPUUtilization rootDiskUtilization LoadAverage MemoryUtilization NetworkIn NetworkOut; do
+for METRIC in ConnectionsTotal CPUUtilization rootDiskUtilization LoadAverage MemoryUtilization NetworkIn NetworkOut dockerDiskUtilization; do
     for DIM in "Name=InstanceId,Value=$INSTANCE_ID" "Name=AutoScalingGroupName,Value=$CWPUT_GROUP"; do
         if aws cloudwatch get-metric-statistics \
         --namespace="System/Linux" \
