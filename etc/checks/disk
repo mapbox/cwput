@@ -3,7 +3,7 @@
 set -e
 
 unit="Percent"
-info=$(df -x tmpfs -x devtmpfs | tail -n+2)
+info=$(df -x tmpfs -x devtmpfs -l | tail -n+2)
 
 while read line; do
     metric_name=
