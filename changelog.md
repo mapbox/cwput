@@ -1,3 +1,15 @@
+### 0.11.0
+
+- Avoids collecting disk utilization information for non-local filesystems
+
+### 0.10.0
+
+- Handles docker disks with > TB of space available
+
+### 0.9.0
+
+- Adds tracking of docker disk space
+
 ### 0.8.0
 
 - CWPUT_PERIOD replaces CWPUT_DISABLE_DETAILED. To preserve the behavior of
