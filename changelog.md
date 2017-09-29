@@ -1,3 +1,7 @@
+### 0.11.1
+
+- Uses `MemAvailable` from `/proc/meminfo` to determine free memory
+
 ### 0.11.0
 
 - Avoids collecting disk utilization information for non-local filesystems
