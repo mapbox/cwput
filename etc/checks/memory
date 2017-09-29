@@ -5,8 +5,8 @@ set -e
 metric_name="MemoryUtilization"
 unit="Percent"
 
-total=$(free -m | grep "Mem" | tr -s " " | cut -d " " -f 2)
-free=$(free -m | grep "buffers/cache" | tr -s " " | cut -d " " -f 4)
+total=$(cat /proc/meminfo | grep "MemTotal" | tr -s " " | cut -d " " -f 2)
+free=$(cat /proc/meminfo | grep "MemAvailable" | tr -s " " | cut -d " " -f 2)
 value=$((100 - (( (($free * 100)) / $total)) ))
 
 echo "$metric_name;$unit;$value"
