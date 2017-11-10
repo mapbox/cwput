@@ -7,8 +7,13 @@ fi
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cp $dir/bin/cwput.bash /usr/bin
-cp $dir/bin/cwput.start /usr/bin
+if [[ "$OSTYPE" =~ darwin ]]; then
+    cp $dir/bin/cwput.bash /usr/local/bin
+    cp $dir/bin/cwput.start /usr/local/bin
+else
+  cp $dir/bin/cwput.bash /usr/bin
+  cp $dir/bin/cwput.start /usr/bin
+fi
 
 
 mkdir -p /etc/cwput
@@ -25,7 +30,7 @@ if [[ $init =~ systemd ]]; then
     cp $dir/etc/cwput.service /etc/systemd/system
     systemctl start cwput
 elif [[ $init =~ launchd ]]; then
-    cp $dir/bin/cwput.start /usr/bin/cwput.start
+    cp $dir/bin/cwput.start /usr/local/bin/cwput.start
     cp $dir/etc/com.mapbox.cwput.plist /Library/LaunchDaemons
     launchctl load /Library/LaunchDaemons/com.mapbox.cwput.plist
 else

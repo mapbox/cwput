@@ -4,13 +4,15 @@ source /etc/profile
 if [[ "$OSTYPE" =~ darwin ]]; then
     source ~root/.cwput_profile
     timeout_cmd=`which gtimeout`
+    cwput_cmd=/usr/local/bin/cwput.bash
 else
-    timeout_cmd=`which timeout`
+  timeout_cmd=`which timeout`
+  cwput_cmd=/usr/bin/cwput.bash
 fi
 
 while [ 1 ]
 do
-  (HOME=/root $timeout_cmd 120 /usr/bin/cwput.bash) &
+  (HOME=/root $timeout_cmd 120 $cwput_cmd) &
   if [ -n "$CWPUT_DISABLE_DETAILED" ]; then
     sleep 300
   else

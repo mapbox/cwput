@@ -20,7 +20,12 @@ else
     stop cwput
     rm /etc/init/cwput.conf
 fi
+if [[ "$OSTYPE" =~ darwin ]]; then
+    rm /usr/local/bin/cwput.bash
+    rm /usr/local/bin/cwput.start
+else
+  rm /usr/bin/cwput.bash
+  rm /usr/bin/cwput.start
+fi
 
-rm /usr/bin/cwput.bash
-rm /usr/bin/cwput.start
 rm -Rf /etc/cwput
