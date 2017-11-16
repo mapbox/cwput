@@ -14,12 +14,12 @@ if which docker > /dev/null 2>&1 && docker info | grep "Storage Driver: devicema
 
     total=$(docker info | grep "Data Space Total")
     total=${total##*: }
-    unit=${total##* }
-    total=${total%% *}
-    [ "$unit" == "KB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000}' <<< ${free})
-    [ "$unit" == "MB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000000}' <<< ${total})
-    [ "$unit" == "GB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000000000}' <<< ${total})
-    [ "$unit" == "TB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000000000000}' <<< ${total})
+    value=${total%%?B}
+    unit=${total##${value}}
+    [ "$unit" == "KB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000}' <<< ${value})
+    [ "$unit" == "MB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000000}' <<< ${value})
+    [ "$unit" == "GB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000000000}' <<< ${value})
+    [ "$unit" == "TB" ] && total=$(awk '{ printf "%.0f" , $1 * 1000000000000}' <<< ${value})
 
     value=$(awk '{ printf "%2.2f" , ($1 * 100)/$2}' <<< "${free} ${total}")
     echo "dockerDiskUtilization;Percent;$value"
