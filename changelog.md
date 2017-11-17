@@ -1,3 +1,7 @@
+### 0.11.3
+
+- Patch fix docker free space parsing
+
 ### 0.11.2
 
 - Fix docker info parsing for dockerDiskUtilization
