@@ -11,12 +11,12 @@ Storage Driver: devicemapper
  Backing Filesystem: ext4
  Data file:
  Metadata file:
- Data Space Used: 338.2 MB
- Data Space Total: 23.35 GB
- Data Space Available: 23.02 GB
- Metadata Space Used: 172 kB
- Metadata Space Total: 25.17 MB
- Metadata Space Available: 24.99 MB
+ Data Space Used: 338.2MB
+ Data Space Total: 23.35GB
+ Data Space Available: 23.02GB
+ Metadata Space Used: 172kB
+ Metadata Space Total: 25.17MB
+ Metadata Space Available: 24.99MB
  Udev Sync Supported: true
  Deferred Removal Enabled: true
  Deferred Deletion Enabled: true
