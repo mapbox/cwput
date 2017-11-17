@@ -1,3 +1,7 @@
+### 0.11.4
+
+- Patch fix docker free space parsing, needed %
+
 ### 0.11.3
 
 - Patch fix docker free space parsing
