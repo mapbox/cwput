@@ -5,12 +5,12 @@ set -e
 if which docker > /dev/null 2>&1 && docker info | grep "Storage Driver: devicemapper" > /dev/null 2>&1; then
     free=$(docker info | grep "Data Space Used")
     free=${free##*: }
-    unit=${free##* }
-    free=${free%% *}
-    [ "$unit" == "KB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000}' <<< ${free})
-    [ "$unit" == "MB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000000}' <<< ${free})
-    [ "$unit" == "GB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000000000}' <<< ${free})
-    [ "$unit" == "TB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000000000000}' <<< ${free})
+    value=${free##?B}
+    unit=${free##${value}}
+    [ "$unit" == "KB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000}' <<< ${value})
+    [ "$unit" == "MB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000000}' <<< ${value})
+    [ "$unit" == "GB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000000000}' <<< ${value})
+    [ "$unit" == "TB" ] && free=$(awk '{ printf "%.0f" , $1 * 1000000000000}' <<< ${value})
 
     total=$(docker info | grep "Data Space Total")
     total=${total##*: }
