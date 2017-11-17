@@ -1,3 +1,7 @@
+### 0.11.2
+
+- Fix docker info parsing for dockerDiskUtilization
+
 ### 0.11.1
 
 - Uses `MemAvailable` from `/proc/meminfo` to determine free memory
